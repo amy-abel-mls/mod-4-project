@@ -3,34 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tester</title>
+    <title>ReadMe Maybe</title>
   </head>
   <body>
-    <h1>Test your API!</h1>
-    <script>
-      const testRoute = async (url) => {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log('data:', data);
-      };
+    <!-- Hero/ Header  -->
+    <header class="hero">
+      <h1 class="app-title">ReadMe Maybe?</h1>
 
-      // const getBook = async () => {
-      //   const response = await fetch('https://openlibrary.org/works/OL45804W.json')
-      //   const { title, covers } = await response.json()
+      <!-- Search & Random  -->
+      <form id="search-form" class="search-bar">
+        <label for="search-input" class="sr-only">Search books</label>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search by title, author, or genre"
+          autocomplete="off"
+        />
+        <button type="submit">Search</button>
+        <button type="button" id="random-book-btn">Random Book</button>
+      </form>
+    </header>
 
-      //   const titleEl = document.createElement('h1');
-      //   titleEl.textContent = title;
-      //   const coverEl = document.createElement('img');
-      //   coverEl.src = `https://covers.openlibrary.org/b/id/${covers[0]}-L.jpg`;
+    <!--  MAIN CONTENT  -->
+    <main>
+      <!-- Genres Fetch on load-->
+      <section id="genres-section">
+        <!-- Example Genre Row -->
+        <section class="genre-row" data-genre="thriller">
+          <h2>Thriller</h2>
 
-      //   document.body.append(titleEl, coverEl);
-      // }
+          <div class="genre-carousel">
+            <!-- JS injects book cards here -->
+          </div>
+        </section>
 
-      const url1 = 'https://openlibrary.org/works/OL45804W.json';
-      // const url2 = 'PASTE API URL 2 HERE';
+        <section class="genre-row" data-genre="romance">
+          <h2>Romance</h2>
+          <div class="genre-carousel"></div>
+        </section>
 
-      // testRoute(url1);
-      // testRoute(url2);
-    </script>
+        <section class="genre-row" data-genre="science_fiction">
+          <h2>Science Fiction</h2>
+          <div class="genre-carousel"></div>
+        </section>
+      </section>
+
+      <!-- Search Results (HIDDEN) -->
+      <section id="search-results-section" hidden>
+        <h2>Search Results</h2>
+
+        <div id="search-results">
+          <!-- JS injects search result book cards -->
+        </div>
+      </section>
+
+      <!-- Recommended (After Search) -->
+      <section id="recommended-section" hidden>
+        <h2>Recommended</h2>
+
+        <div id="recommended-results">
+          <!-- JS injects recommended book cards -->
+        </div>
+      </section>
+    </main>
+
+    <!--  Modal -->
+    <div id="modal-overlay" hidden>
+      <div class="modal-backdrop"></div>
+
+      <div class="modal-content" role="dialog" aria-modal="true">
+        <button id="close-modal-btn" aria-label="Close modal">✕</button>
+
+        <!-- Book details injected here -->
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Powered by Open Library</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
