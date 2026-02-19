@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReadMe Maybe</title>
+<<<<<<< Updated upstream
+=======
+    <link rel="stylesheet" href="/src/style.css" />
+>>>>>>> Stashed changes
   </head>
   <body>
     <!-- Hero/ Header  -->
@@ -11,17 +15,19 @@
       <h1 class="app-title">ReadMe Maybe?</h1>
 
       <!-- Search & Random  -->
-      <form id="search-form" class="search-bar">
-        <label for="search-input" class="sr-only">Search books</label>
-        <input
-          id="search-input"
-          type="text"
-          placeholder="Search by title, author, or genre"
-          autocomplete="off"
-        />
-        <button type="submit">Search</button>
-        <button type="button" id="random-book-btn">Random Book</button>
-      </form>
+      <div id="search-and-random-container">
+        <form id="search-form" class="search-bar" role="search">
+          <label for="search-input" class="sr-only">Search books</label>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Search by title, author, or genre"
+            autocomplete="off"
+          />
+          <button type="submit">Search</button>
+        </form>
+        <button id="random-book-btn">Random Book</button>
+      </div>
     </header>
 
     <!--  MAIN CONTENT  -->
@@ -57,24 +63,24 @@
       <section id="search-results-section" hidden>
         <h2>Search Results</h2>
 
-        <div id="search-results">
+        <ul id="search-results">
           <!-- JS injects search result book cards -->
-        </div>
+        </ul>
       </section>
 
       <!-- Recommended (After Search) -->
       <section id="recommended-section" hidden>
         <h2>Recommended</h2>
 
-        <div id="recommended-results">
+        <ul id="recommended-results">
           <!-- JS injects recommended book cards -->
-        </div>
+        </ul>
       </section>
     </main>
 
     <!--  Modal -->
     <div id="modal-overlay" hidden>
-      <div class="modal-backdrop"></div>
+      <!-- <div class="modal-backdrop"></div> -->
 
       <div class="modal-content" role="dialog" aria-modal="true">
         <button id="close-modal-btn" aria-label="Close modal">✕</button>
