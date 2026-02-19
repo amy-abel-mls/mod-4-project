@@ -1,5 +1,3 @@
-# mod-4-project
-
 # **📚 ReadMe Maybe?**
 
 **ReadMe Maybe?** is an interactive, single-page book discovery application that allows users to explore books by genre, search by title or author, receive personalized recommendations, and discover random books — all without navigating away from the page. The app uses public book data to create a dynamic and engaging browsing experience.
