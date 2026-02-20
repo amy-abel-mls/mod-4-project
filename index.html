@@ -4,15 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReadMe Maybe</title>
-<<<<<<< Updated upstream
-=======
     <link rel="stylesheet" href="/src/style.css" />
->>>>>>> Stashed changes
   </head>
   <body>
     <!-- Hero/ Header  -->
     <header class="hero">
-      <h1 class="app-title">ReadMe Maybe?</h1>
+      <div id="hero-bookshelf-container">
+        <h1 class="app-title">ReadMe Maybe?</h1>
+      </div>
 
       <!-- Search & Random  -->
       <div id="search-and-random-container">
@@ -38,34 +37,35 @@
         <section class="genre-row" data-genre="thriller">
           <h2>Thriller</h2>
 
-          <div class="genre-carousel">
+          <ul class="genre-carousel">
             <!-- JS injects book cards here -->
-          </div>
+          </ul>
         </section>
 
         <section class="genre-row" data-genre="romance">
           <h2>Romance</h2>
-          <div class="genre-carousel"></div>
+          <ul class="genre-carousel"></ul>
         </section>
 
         <section class="genre-row" data-genre="fantasy">
           <h2>Fantasy</h2>
-          <div class="genre-carousel"></div>
+          <ul class="genre-carousel"></ul>
         </section>
 
         <section class="genre-row" data-genre="science_fiction">
           <h2>Science Fiction</h2>
-          <div class="genre-carousel"></div>
+          <ul class="genre-carousel"></ul>
         </section>
       </section>
 
       <!-- Search Results (HIDDEN) -->
       <section id="search-results-section" hidden>
-        <h2>Search Results</h2>
-
-        <ul id="search-results">
-          <!-- JS injects search result book cards -->
-        </ul>
+        <div id="search-bookshelf-container">
+          <h2>Search Results</h2>
+          <ul id="search-results">
+            <!-- JS injects search result book cards -->
+          </ul>
+        </div>
       </section>
 
       <!-- Recommended (After Search) -->
@@ -77,7 +77,6 @@
         </ul>
       </section>
     </main>
-
     <!--  Modal -->
     <div id="modal-overlay" hidden>
       <!-- <div class="modal-backdrop"></div> -->

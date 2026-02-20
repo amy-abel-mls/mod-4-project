@@ -147,7 +147,7 @@ const handleRandomBook = async () => {
   if (!book.error) {
     renderBookDetails(book);
     modalOverlay.hidden = false;
-    document.body.style.overflowY = 'hidden';
+    document.body.style.overflow = 'hidden';
   }
 };
 
@@ -160,8 +160,6 @@ const handleRandomBook = async () => {
    - Allows users to close the modal
    ===================================================== */
 const handleBookClick = async (e) => {
-  document.body.style.overflow = 'scroll';
-
   const bookItem = e.target.closest('[data-book-key]');
   if (!bookItem) return;
 
@@ -171,13 +169,13 @@ const handleBookClick = async (e) => {
   if (!book.error) {
     renderBookDetails(book);
     modalOverlay.hidden = false;
-    document.body.style.overflowY = 'hidden';
+    document.body.style.overflow = 'hidden';
   }
 };
 
 const closeModal = () => {
-  document.body.style.overflowY = 'hidden';
   modalOverlay.hidden = true;
+  document.body.style.overflow = 'scroll';
 };
 
 /* =====================================================
