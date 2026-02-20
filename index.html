@@ -4,7 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReadMe Maybe</title>
-    <link rel="stylesheet" href="/src/main.css" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <!-- Hero/ Header  -->
@@ -12,17 +19,19 @@
       <h1 class="app-title">ReadMe Maybe?</h1>
 
       <!-- Search & Random  -->
-      <form id="search-form" class="search-bar">
-        <label for="search-input" class="sr-only">Search books</label>
-        <input
-          id="search-input"
-          type="text"
-          placeholder="Search by title, author, or genre"
-          autocomplete="off"
-        />
-        <button type="submit">Search</button>
-        <button type="button" id="random-book-btn">Random Book</button>
-      </form>
+      <div id="search-and-random-container">
+        <form id="search-form" class="search-bar" role="search">
+          <label for="search-input" class="sr-only">Search books</label>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Search by title, author, or genre"
+            autocomplete="off"
+          />
+          <button type="submit">Search</button>
+        </form>
+        <button id="random-book-btn" type="button">Random Book</button>
+      </div>
     </header>
 
     <!--  MAIN CONTENT  -->
@@ -33,24 +42,96 @@
         <section class="genre-row" data-genre="thriller">
           <h2>Thriller</h2>
 
-          <ul class="genre-carousel">
-            <!-- JS injects book cards here -->
-          </ul>
+          <div class="carousel-wrapper">
+            <button
+              class="arrow arrow-left"
+              type="button"
+              aria-label="Scroll left"
+            >
+              ‹
+            </button>
+
+            <ul class="genre-carousel"></ul>
+
+            <button
+              class="arrow arrow-right"
+              type="button"
+              aria-label="Scroll right"
+            >
+              ›
+            </button>
+          </div>
         </section>
 
         <section class="genre-row" data-genre="romance">
           <h2>Romance</h2>
-          <ul class="genre-carousel"></ul>
+
+          <div class="carousel-wrapper">
+            <button
+              class="arrow arrow-left"
+              type="button"
+              aria-label="Scroll left"
+            >
+              ‹
+            </button>
+
+            <ul class="genre-carousel"></ul>
+
+            <button
+              class="arrow arrow-right"
+              type="button"
+              aria-label="Scroll right"
+            >
+              ›
+            </button>
+          </div>
         </section>
 
         <section class="genre-row" data-genre="fantasy">
           <h2>Fantasy</h2>
-          <ul class="genre-carousel"></ul>
-        </section>
 
+          <div class="carousel-wrapper">
+            <button
+              class="arrow arrow-left"
+              type="button"
+              aria-label="Scroll left"
+            >
+              ‹
+            </button>
+
+            <ul class="genre-carousel"></ul>
+
+            <button
+              class="arrow arrow-right"
+              type="button"
+              aria-label="Scroll right"
+            >
+              ›
+            </button>
+          </div>
+        </section>
         <section class="genre-row" data-genre="science_fiction">
           <h2>Science Fiction</h2>
-          <ul class="genre-carousel"></ul>
+
+          <div class="carousel-wrapper">
+            <button
+              class="arrow arrow-left"
+              type="button"
+              aria-label="Scroll left"
+            >
+              ‹
+            </button>
+
+            <ul class="genre-carousel"></ul>
+
+            <button
+              class="arrow arrow-right"
+              type="button"
+              aria-label="Scroll right"
+            >
+              ›
+            </button>
+          </div>
         </section>
       </section>
 
@@ -58,16 +139,33 @@
       <section id="search-results-section" hidden>
         <h2>Search Results</h2>
 
-        <div id="search-results">
-          <!-- JS injects search result book cards -->
+        <div class="carousel-wrapper">
+          <button
+            class="arrow arrow-left"
+            type="button"
+            aria-label="Scroll search results left"
+          >
+            ‹
+          </button>
+
+          <div id="search-results" class="scroll-row">
+            <!-- JS injects search result book cards -->
+          </div>
+
+          <button
+            class="arrow arrow-right"
+            type="button"
+            aria-label="Scroll search results right"
+          >
+            ›
+          </button>
         </div>
       </section>
-
       <!-- Recommended (After Search) -->
       <section id="recommended-section" hidden>
         <h2>Recommended</h2>
 
-        <div id="recommended-results">
+        <div id="recommended-results" class="scroll-row">
           <!-- JS injects recommended book cards -->
         </div>
       </section>

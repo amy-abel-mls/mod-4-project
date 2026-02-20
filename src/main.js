@@ -176,6 +176,23 @@ const closeModal = () => {
   modalOverlay.hidden = true;
 };
 
+const SCROLL_AMOUNT = 300;
+const handleArrowClick = (e) => {
+  const arrow = e.target.closest(".arrow");
+  if (!arrow) return;
+
+  const wrapper = arrow.closest(".carousel-wrapper");
+  const carousel = wrapper.querySelector(".genre-carousel, .scroll-row");
+
+  if (arrow.classList.contains("arrow-left")) {
+    carousel.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
+  }
+
+  if (arrow.classList.contains("arrow-right")) {
+    carousel.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
+  }
+};
+
 /* =====================================================
    EVENT LISTENERS
    -----------------------------------------------------
@@ -185,7 +202,12 @@ searchForm.addEventListener("submit", handleSearch);
 document.body.addEventListener("click", handleBookClick);
 closeModalBtn.addEventListener("click", closeModal);
 randomBookBtn.addEventListener("click", handleRandomBook);
-
+document
+  .querySelector("#genres-section")
+  .addEventListener("click", handleArrowClick);
+document
+  .querySelector("#search-results-section")
+  .addEventListener("click", handleArrowClick);
 /* =====================================================
    APPLICATION START
    -----------------------------------------------------
