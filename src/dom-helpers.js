@@ -71,26 +71,63 @@ export const renderBookDetails = (book) => {
   // Clear previous modal content
   modalBody.innerHTML = '';
 
-  // Book cover
+  const bookData = book.data[0];
+
+  //Image
   const img = document.createElement('img');
   img.onerror = () => {
     img.src = '/placeholder.jpg';
   };
   img.src = book.data[1] || '/placeholder.jpg';
-  img.alt = book.data[0].title;
+  img.alt = bookData.title;
 
-  // Book title
-  const h3 = document.createElement('h3');
-  h3.textContent = book.data[0].title;
+  //Title
+  const title = document.createElement('h3');
+  title.textContent = bookData.title;
 
-  // Book description (handles inconsistent API formats)
-  const p = document.createElement('p');
-  p.textContent =
-    typeof book.data[0].description === 'string'
-      ? book.data[0].description
-      : book.data[0].description?.value || 'No description available.';
+  //Description
+  const description = document.createElement('p');
+  description.textContent =
+    typeof bookData.description === 'string'
+      ? bookData.description
+      : bookData.description?.value || 'No description available.';
 
-  modalBody.append(img, h3, p);
+  //Genres
+  const genresContainer = document.createElement('div');
+  genresContainer.classList.add('book-genres');
+
+  const genresTitle = document.createElement('h4');
+  genresTitle.textContent = 'Genres';
+
+  const marqueeContainer = document.createElement('div');
+  marqueeContainer.classList.add('marquee-container');
+
+  const genresList = document.createElement('ul');
+  genresList.classList.add('marquee');
+
+  if (bookData.subjects && bookData.subjects.length) {
+    bookData.subjects.slice(0, 5).forEach((subject) => {
+      const li = document.createElement('li');
+      li.textContent = subject;
+      genresList.appendChild(li);
+    });
+  } else {
+    const li = document.createElement('li');
+    li.textContent = 'No genres available';
+    genresList.appendChild(li);
+  }
+
+  marqueeContainer.append(genresList);
+
+  //duplicated for marquee
+  const genresListCloned = genresList.cloneNode(true);
+  genresListCloned.setAttribute('aria-hidden', 'true');
+  marqueeContainer.append(genresListCloned);
+
+  genresContainer.append(genresTitle, marqueeContainer);
+
+  //Append
+  modalBody.append(img, title, genresContainer, description);
 };
 
 /* =====================================================
@@ -135,7 +172,9 @@ export const renderBooksSearch = (books) => {
      the UI focused and readable
    ===================================================== */
 export const renderRecommendedBooks = (books) => {
-  // Ensure recommended section is visible
+  // Guard clause — prevents runtime crash
+  if (!recommendedSection || !recommendedResults) return;
+
   recommendedSection.hidden = false;
   recommendedResults.innerHTML = '';
 
@@ -143,13 +182,11 @@ export const renderRecommendedBooks = (books) => {
     const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
-    // Book cover with fallback
     const img = document.createElement('img');
     img.onerror = () => (img.src = '/placeholder.jpg');
     img.src = books.data[1][i] || '/placeholder.jpg';
     img.alt = book.title;
 
-    // Book title
     const h3 = document.createElement('h3');
     h3.textContent = book.title;
 
