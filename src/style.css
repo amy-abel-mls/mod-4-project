@@ -56,16 +56,19 @@ header {
   gap: 5rem;
 }
 
-#hero-bookshelf-container {
+#hero-bookshelf-container,
+button {
   position: relative;
   transition: all 0.5s ease-in-out;
 }
 
-#hero-bookshelf-container:hover {
+#hero-bookshelf-container:hover,
+button:hover {
   transform: scale(1.05);
 }
 
-#hero-bookshelf-container:active {
+#hero-bookshelf-container:active,
+button:active {
   transform: scale(0.9);
 }
 
@@ -256,6 +259,12 @@ label {
 #search-results li:hover,
 #recommended-results li:hover {
   transform: scale(1);
+}
+
+.genre-carousel li:active,
+#search-results li:active,
+#recommended-results li:active {
+  transform: scale(0.94);
 }
 
 .genre-carousel img,
