@@ -43,6 +43,8 @@ export const renderBooksGenre = (books, container) => {
 
     // Book cover with graceful fallback
     const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.onload = () => img.classList.add('loaded');
     img.onerror = () => {
       img.src = '/placeholder.jpg';
     };
@@ -75,6 +77,8 @@ export const renderBookDetails = (book) => {
 
   //Image
   const img = document.createElement('img');
+  img.loading = 'lazy';
+  img.onload = () => img.classList.add('loaded');
   img.onerror = () => {
     img.src = '/placeholder.jpg';
   };
@@ -148,6 +152,8 @@ export const renderBooksSearch = (books) => {
 
     // Book cover with fallback
     const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.onload = () => img.classList.add('loaded');
     img.onerror = () => {
       img.src = '/placeholder.jpg';
     };
@@ -183,6 +189,8 @@ export const renderRecommendedBooks = (books) => {
     li.dataset.bookKey = book.key;
 
     const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.onload = () => img.classList.add('loaded');
     img.onerror = () => (img.src = '/placeholder.jpg');
     img.src = books.data[1][i] || '/placeholder.jpg';
     img.alt = book.title;

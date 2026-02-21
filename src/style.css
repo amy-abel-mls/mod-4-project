@@ -231,6 +231,7 @@ label {
   overflow-x: scroll;
   gap: 0.5rem;
   font-size: 0.8rem;
+  min-height: 24rem;
 }
 
 .genre-carousel::before,
@@ -273,6 +274,17 @@ label {
   width: 17rem;
   height: 24rem;
   object-fit: fill;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.genre-carousel img.loaded,
+#search-results img.loaded,
+#recommended-results img.loaded,
+#modal-body img.loaded {
+  transform: scale(1);
+  opacity: 1;
 }
 
 .genre-carousel h3,
@@ -480,6 +492,9 @@ footer {
     height: 100%;
     grid-row: span 3;
     object-fit: contain;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.7s ease-in-out;
   }
 
   .arrow-left {
