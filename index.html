@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <!-- Hero/ Header  -->
-    <header class="hero">
+    <!-- Hero/Header  -->
+    <header>
       <div id="hero-bookshelf-container">
-        <h1 class="app-title"><a href=".">ReadMe Maybe?</a></h1>
+        <h1 id="title"><a href=".">ReadMe Maybe?</a></h1>
       </div>
 
       <!-- Search & Random  -->
@@ -36,7 +36,6 @@
         <!-- Example Genre Row -->
         <section class="genre-row" data-genre="thriller">
           <h2>Thriller</h2>
-
           <div class="carousel-wrapper">
             <button class="arrow arrow-left" type="button" aria-label="Scroll left">‹</button>
             <ul class="genre-carousel"></ul>
@@ -76,39 +75,25 @@
       <section id="search-results-section" hidden>
         <div id="search-bookshelf-container">
           <h2>Search Results</h2>
-          <ul class="carousel-wrapper">
-            <button class="arrow arrow-left" type="button" aria-label="Scroll search results left">
-              ‹
-            </button>
-
-            <div id="search-results"></div>
-
-            <button
-              class="arrow arrow-right"
-              type="button"
-              aria-label="Scroll search results right"
-            >
-              ›
-            </button>
-          </ul>
+          <div class="carousel-wrapper">
+            <button class="arrow arrow-left" type="button" aria-label="Scroll left">‹</button>
+            <ul id="search-results"></ul>
+            <button class="arrow arrow-right" type="button" aria-label="Scroll right">›</button>
+          </div>
         </div>
       </section>
 
       <!-- Recommended (After Search) -->
       <section id="recommended-section" hidden>
         <h2>Recommended</h2>
-
-        <ul id="recommended-results">
-          <!-- JS injects recommended book cards -->
-        </ul>
+        <ul id="recommended-results"></ul>
       </section>
     </main>
+
     <!--  Modal -->
     <div id="modal-overlay" hidden>
       <div class="modal-content" role="dialog" aria-modal="true">
         <button id="close-modal-btn" aria-label="Close modal">✕</button>
-
-        <!-- Book details injected here -->
         <div id="modal-body"></div>
       </div>
     </div>
