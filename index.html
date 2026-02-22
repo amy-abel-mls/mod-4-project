@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReadMe Maybe</title>
+    <script type="module" crossorigin src="/mod-4-project/assets/index-B2xXRiQt.js"></script>
+    <link rel="stylesheet" crossorigin href="/mod-4-project/assets/index-CKGg78rb.css">
+  </head>
+  <body>
+    <!-- Hero/Header  -->
+    <header>
+      <div id="hero-bookshelf-container">
+        <h1 id="title"><a href=".">ReadMe Maybe?</a></h1>
+      </div>
+
+      <!-- Search & Random  -->
+      <div id="search-and-random-container">
+        <form id="search-form" class="search-bar" role="search">
+          <label for="search-input" class="sr-only">Search books</label>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Search by title, author, or genre"
+            autocomplete="off"
+          />
+          <button type="submit">Search</button>
+        </form>
+        <button id="random-book-btn">Random Book</button>
+      </div>
+    </header>
+
+    <!--  MAIN CONTENT  -->
+    <main>
+      <!-- Genres Fetch on load-->
+      <section id="genres-section">
+        <!-- Example Genre Row -->
+        <section class="genre-row" data-genre="thriller">
+          <h2>Thriller</h2>
+          <div class="carousel-wrapper">
+            <button class="arrow arrow-left" type="button" aria-label="Scroll left">‹</button>
+            <ul class="genre-carousel"></ul>
+            <button class="arrow arrow-right" type="button" aria-label="Scroll right">›</button>
+          </div>
+        </section>
+
+        <section class="genre-row" data-genre="romance">
+          <h2>Romance</h2>
+          <div class="carousel-wrapper">
+            <button class="arrow arrow-left" type="button" aria-label="Scroll left">‹</button>
+            <ul class="genre-carousel"></ul>
+            <button class="arrow arrow-right" type="button" aria-label="Scroll right">›</button>
+          </div>
+        </section>
+
+        <section class="genre-row" data-genre="fantasy">
+          <h2>Fantasy</h2>
+          <div class="carousel-wrapper">
+            <button class="arrow arrow-left" type="button" aria-label="Scroll left">‹</button>
+            <ul class="genre-carousel"></ul>
+            <button class="arrow arrow-right" type="button" aria-label="Scroll right">›</button>
+          </div>
+        </section>
+
+        <section class="genre-row" data-genre="science_fiction">
+          <h2>Science Fiction</h2>
+          <div class="carousel-wrapper">
+            <button class="arrow arrow-left" type="button" aria-label="Scroll left">‹</button>
+            <ul class="genre-carousel"></ul>
+            <button class="arrow arrow-right" type="button" aria-label="Scroll right">›</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- Search Results (HIDDEN) -->
+      <section id="search-results-section" hidden>
+        <div id="search-bookshelf-container">
+          <h2>Search Results</h2>
+          <div class="carousel-wrapper">
+            <button class="arrow arrow-left" type="button" aria-label="Scroll left">‹</button>
+            <ul id="search-results"></ul>
+            <button class="arrow arrow-right" type="button" aria-label="Scroll right">›</button>
+          </div>
+        </div>
+      </section>
+      <!-- Recommended (After Search) -->
+      <section id="recommended-section" hidden>
+        <h2>Recommended</h2>
+        <ul id="recommended-results"></ul>
+      </section>
+    </main>
+
+    <!--  Modal -->
+    <div id="modal-overlay" hidden>
+      <div class="modal-content" role="dialog" aria-modal="true">
+        <button id="close-modal-btn" aria-label="Close modal">✕</button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Powered by Open Library</p>
+    </footer>
+
+  </body>
+</html>
