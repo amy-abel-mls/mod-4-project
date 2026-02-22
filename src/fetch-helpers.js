@@ -25,9 +25,13 @@
    ===================================================== */
 export const getGenres = async (genre) => {
   try {
+<<<<<<< feature/css
+    const response = await fetch(`https://openlibrary.org/subjects/${genre}.json`);
+=======
     const response = await fetch(
       `https://openlibrary.org/subjects/${genre}.json`,
     );
+>>>>>>> main
 
     if (!response.ok) {
       throw Error(`Fetch failed. ${response.status} ${response.statusText}`);
@@ -39,9 +43,13 @@ export const getGenres = async (genre) => {
     // Some books may not have covers (handled later in the UI)
     let cover = [];
     for (const work of data.works) {
+<<<<<<< feature/css
+      cover.push(`https://covers.openlibrary.org/b/olid/${work.cover_edition_key}-L.jpg`);
+=======
       cover.push(
         `https://covers.openlibrary.org/b/olid/${work.cover_edition_key}-L.jpg`,
       );
+>>>>>>> main
     }
 
     return { data: [data, cover], error: null };
@@ -96,9 +104,13 @@ export const getSingleBook = async (key) => {
    ===================================================== */
 export const searchBooks = async (query) => {
   try {
+<<<<<<< feature/css
+    const response = await fetch(`https://openlibrary.org/search.json?q=${query}&sort=rating`);
+=======
     const response = await fetch(
       `https://openlibrary.org/search.json?q=${query}&sort=rating`,
     );
+>>>>>>> main
 
     if (!response.ok) {
       throw Error(`Fetch failed. ${response.status} ${response.statusText}`);
@@ -110,11 +122,15 @@ export const searchBooks = async (query) => {
     // Some results may not include a cover
     let cover = [];
     for (const doc of data.docs) {
+<<<<<<< feature/css
+      cover.push(doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg` : null);
+=======
       cover.push(
         doc.cover_i
           ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`
           : null,
       );
+>>>>>>> main
     }
 
     return { data: [data, cover], error: null };
