@@ -6,21 +6,13 @@
    - DOM helpers are responsible only for creating
      and updating HTML elements on the page
    ===================================================== */
-<<<<<<< feature/css
 import { getGenres, searchBooks, getSingleBook } from './fetch-helpers.js';
-=======
-import { getGenres, searchBooks, getSingleBook } from "./fetch-helpers.js";
->>>>>>> main
 import {
   renderBooksGenre,
   renderBooksSearch,
   renderBookDetails,
   renderRecommendedBooks,
-<<<<<<< feature/css
 } from './dom-helpers.js';
-=======
-} from "./dom-helpers.js";
->>>>>>> main
 
 /* =====================================================
    DOM REFERENCES
@@ -30,7 +22,6 @@ import {
    - Listen for user interactions
    - Open and close the modal
    ===================================================== */
-<<<<<<< feature/css
 const genreSections = document.querySelectorAll('.genre-row');
 const genresSection = document.querySelector('#genres-section');
 
@@ -41,18 +32,6 @@ const modalOverlay = document.querySelector('#modal-overlay');
 const closeModalBtn = document.querySelector('#close-modal-btn');
 
 const randomBookBtn = document.querySelector('#random-book-btn');
-=======
-const genreSections = document.querySelectorAll(".genre-row");
-const genresSection = document.querySelector("#genres-section");
-
-const searchForm = document.querySelector("#search-form");
-const searchInput = document.querySelector("#search-input");
-
-const modalOverlay = document.querySelector("#modal-overlay");
-const closeModalBtn = document.querySelector("#close-modal-btn");
-
-const randomBookBtn = document.querySelector("#random-book-btn");
->>>>>>> main
 
 /* =====================================================
    CONSTANTS
@@ -62,21 +41,12 @@ const randomBookBtn = document.querySelector("#random-book-btn");
    by selecting a random genre first
    ===================================================== */
 const RANDOM_GENRES = [
-<<<<<<< feature/css
   'fantasy',
   'science_fiction',
   'romance',
   'thriller',
   'mystery',
   'historical_fiction',
-=======
-  "fantasy",
-  "science_fiction",
-  "romance",
-  "thriller",
-  "mystery",
-  "historical_fiction",
->>>>>>> main
 ];
 
 /* =====================================================
@@ -89,11 +59,7 @@ const RANDOM_GENRES = [
 const loadGenres = async () => {
   for (const section of genreSections) {
     const genre = section.dataset.genre;
-<<<<<<< feature/css
     const container = section.querySelector('ul');
-=======
-    const container = section.querySelector("ul");
->>>>>>> main
 
     const books = await getGenres(genre);
     if (!books.error) {
@@ -149,11 +115,7 @@ const getRecommendationsFromSearch = async (searchResults) => {
   // Select one subject to base recommendations on
   const subject = subjects[Math.floor(Math.random() * subjects.length)]
     .toLowerCase()
-<<<<<<< feature/css
     .replace(/\s+/g, '_');
-=======
-    .replace(/\s+/g, "_");
->>>>>>> main
 
   const recommended = await getGenres(subject);
   if (!recommended.error) {
@@ -171,12 +133,7 @@ const getRecommendationsFromSearch = async (searchResults) => {
      for all book details
    ===================================================== */
 const handleRandomBook = async () => {
-<<<<<<< feature/css
   const randomGenre = RANDOM_GENRES[Math.floor(Math.random() * RANDOM_GENRES.length)];
-=======
-  const randomGenre =
-    RANDOM_GENRES[Math.floor(Math.random() * RANDOM_GENRES.length)];
->>>>>>> main
 
   const genreBooks = await getGenres(randomGenre);
   if (genreBooks.error) return;
@@ -190,10 +147,7 @@ const handleRandomBook = async () => {
   if (!book.error) {
     renderBookDetails(book);
     modalOverlay.hidden = false;
-<<<<<<< feature/css
     document.body.style.overflow = 'hidden';
-=======
->>>>>>> main
   }
 };
 
@@ -206,11 +160,7 @@ const handleRandomBook = async () => {
    - Allows users to close the modal
    ===================================================== */
 const handleBookClick = async (e) => {
-<<<<<<< feature/css
   const bookItem = e.target.closest('[data-book-key]');
-=======
-  const bookItem = e.target.closest("[data-book-key]");
->>>>>>> main
   if (!bookItem) return;
 
   const bookKey = bookItem.dataset.bookKey;
@@ -219,24 +169,17 @@ const handleBookClick = async (e) => {
   if (!book.error) {
     renderBookDetails(book);
     modalOverlay.hidden = false;
-<<<<<<< feature/css
     document.body.style.overflow = 'hidden';
-=======
->>>>>>> main
   }
 };
 
 const closeModal = () => {
   modalOverlay.hidden = true;
-<<<<<<< feature/css
   document.body.style.overflow = 'scroll';
-=======
->>>>>>> main
 };
 
 const SCROLL_AMOUNT = 300;
 const handleArrowClick = (e) => {
-<<<<<<< feature/css
   const arrow = e.target.closest('.arrow');
   if (!arrow) return;
 
@@ -249,20 +192,6 @@ const handleArrowClick = (e) => {
 
   if (arrow.classList.contains('arrow-right')) {
     carousel.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' });
-=======
-  const arrow = e.target.closest(".arrow");
-  if (!arrow) return;
-
-  const wrapper = arrow.closest(".carousel-wrapper");
-  const carousel = wrapper.querySelector(".genre-carousel, .scroll-row");
-
-  if (arrow.classList.contains("arrow-left")) {
-    carousel.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
-  }
-
-  if (arrow.classList.contains("arrow-right")) {
-    carousel.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
->>>>>>> main
   }
 };
 
@@ -271,25 +200,12 @@ const handleArrowClick = (e) => {
    -----------------------------------------------------
    Connects user actions to application behavior
    ===================================================== */
-<<<<<<< feature/css
 searchForm.addEventListener('submit', handleSearch);
 document.body.addEventListener('click', handleBookClick);
 closeModalBtn.addEventListener('click', closeModal);
 randomBookBtn.addEventListener('click', handleRandomBook);
 document.querySelector('#genres-section').addEventListener('click', handleArrowClick);
 document.querySelector('#search-results-section').addEventListener('click', handleArrowClick);
-=======
-searchForm.addEventListener("submit", handleSearch);
-document.body.addEventListener("click", handleBookClick);
-closeModalBtn.addEventListener("click", closeModal);
-randomBookBtn.addEventListener("click", handleRandomBook);
-document
-  .querySelector("#genres-section")
-  .addEventListener("click", handleArrowClick);
-document
-  .querySelector("#search-results-section")
-  .addEventListener("click", handleArrowClick);
->>>>>>> main
 /* =====================================================
    APPLICATION START
    -----------------------------------------------------
