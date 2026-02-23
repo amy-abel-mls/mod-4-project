@@ -177,14 +177,17 @@ export const renderBooksSearch = (books) => {
    - Limits the number of recommendations to keep
      the UI focused and readable
    ===================================================== */
-export const renderRecommendedBooks = (books) => {
+export const renderRecommendedBooks = (books, searchWord) => {
   // Guard clause — prevents runtime crash
   if (!recommendedSection || !recommendedResults) return;
 
   recommendedSection.hidden = false;
   recommendedResults.innerHTML = '';
 
-  books.data[0].works.slice(0, 8).forEach((book, i) => {
+  books.data[0].works.forEach((book, i) => {
+    //Avoids books with a similar title as the seedBook
+    if (book.title.includes(searchWord)) return;
+
     const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 

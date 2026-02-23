@@ -110,7 +110,7 @@ const getRecommendationsFromSearch = async (searchResults) => {
   if (fullBook.error) return;
 
   const subjects = fullBook.data[0].subjects;
-  if (!subjects || !subjects.length) return;
+  if (!subjects?.length) return;
 
   // Select one subject to base recommendations on
   const subject = subjects[Math.floor(Math.random() * subjects.length)]
@@ -119,7 +119,7 @@ const getRecommendationsFromSearch = async (searchResults) => {
 
   const recommended = await getGenres(subject);
   if (!recommended.error) {
-    renderRecommendedBooks(recommended);
+    renderRecommendedBooks(recommended, searchWord);
   }
 };
 
