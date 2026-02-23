@@ -45,10 +45,10 @@ export const renderBooksGenre = (books, container) => {
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.onload = () => img.classList.add('loaded');
-    img.onerror = () => {
-      img.src = '/placeholder.jpg';
-    };
-    img.src = books.data[1][i] || '/placeholder.jpg';
+    // img.onerror = () => {
+    //   img.src = '/mod-4-project/assets/placeholder.jpg';
+    // };
+    img.src = books.data[1][i];
     img.alt = book.title;
 
     // Book title
@@ -79,10 +79,10 @@ export const renderBookDetails = (book) => {
   const img = document.createElement('img');
   img.loading = 'lazy';
   img.onload = () => img.classList.add('loaded');
-  img.onerror = () => {
-    img.src = '/placeholder.jpg';
-  };
-  img.src = book.data[1] || '/placeholder.jpg';
+  // img.onerror = () => {
+  //   img.src = '/mod-4-project/assets/placeholder.jpg';
+  // };
+  img.src = book.data[1];
   img.alt = bookData.title;
 
   //Title
@@ -154,10 +154,10 @@ export const renderBooksSearch = (books) => {
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.onload = () => img.classList.add('loaded');
-    img.onerror = () => {
-      img.src = '/placeholder.jpg';
-    };
-    img.src = books.data[1][i] || '/placeholder.jpg';
+    // img.onerror = () => {
+    //   img.src = '/mod-4-project/assets/placeholder.jpg';
+    // };
+    img.src = books.data[1][i];
     img.alt = book.title;
 
     // Book title
@@ -194,8 +194,8 @@ export const renderRecommendedBooks = (books, searchWord) => {
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.onload = () => img.classList.add('loaded');
-    img.onerror = () => (img.src = '/placeholder.jpg');
-    img.src = books.data[1][i] || '/placeholder.jpg';
+    // img.onerror = () => (img.src = '/mod-4-project/assets/placeholder.jpg');
+    img.src = books.data[1][i];
     img.alt = book.title;
 
     const h3 = document.createElement('h3');

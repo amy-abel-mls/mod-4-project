@@ -38,7 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  background-image: url('./assets/wall.png');
+  background-image: url('/assets/wall.png');
   color: var(--text-color);
   font-family: var(--serif-font);
   font-weight: 400;
@@ -88,7 +88,7 @@ button:active {
   z-index: -1;
   transform: scale(1.1);
   box-shadow: 0 10px 30px black;
-  background: url('./assets/wood.png') center / cover;
+  background: url('/assets/wood.png') center / cover;
 }
 
 /* SEARCH FORM */
@@ -161,7 +161,7 @@ label {
   font-weight: bold;
   padding-inline: 1rem;
   font-size: 0.7rem;
-  background: url('./assets/wood-bg.png') right bottom / cover;
+  background: url('/assets/wood-bg.png') right bottom / cover;
   color: var(--text-color);
   border-radius: 0 0.7rem 0.7rem 0;
 }
@@ -245,7 +245,7 @@ label {
   z-index: -1;
   transform: scale(1.03);
   box-shadow: 0 10px 30px black;
-  background: url('./assets/wood.png') center / cover;
+  background: url('/assets/wood.png') center / cover;
 }
 
 .genre-carousel li,
@@ -354,7 +354,7 @@ label {
   transform: inherit;
   z-index: -1;
   opacity: 0.9;
-  background-image: url('./assets/wall.png');
+  background-image: url('/assets/wall.png');
   border: 3px ridge var(--wood-color);
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);

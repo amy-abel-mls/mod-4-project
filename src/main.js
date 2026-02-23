@@ -131,6 +131,7 @@ const getRecommendationsFromSearch = async (searchResults) => {
     recommendedFiltered = filterRecommended(recommended);
   }
 
+  const recommended = await getGenres(subject);
   if (!recommended.error) {
     renderRecommendedBooks(recommended, searchWord);
   }

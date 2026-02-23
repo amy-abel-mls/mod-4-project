@@ -34,10 +34,13 @@ export const getGenres = async (genre) => {
     const data = await response.json();
 
     // Build a list of cover image URLs for each book
-    // Some books may not have covers (handled later in the UI)
     let cover = [];
     for (const work of data.works) {
-      cover.push(`https://covers.openlibrary.org/b/olid/${work.cover_edition_key}-L.jpg`);
+      cover.push(
+        work.cover_edition_key
+          ? `https://covers.openlibrary.org/b/olid/${work.cover_edition_key}-L.jpg`
+          : '/mod-4-project/assets/placeholder.jpg',
+      );
     }
 
     return { data: [data, cover], error: null };
@@ -70,7 +73,9 @@ export const getSingleBook = async (key) => {
     const data = await response.json();
 
     // Build the cover image URL using the cover ID
-    const cover = `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`;
+    const cover = data.covers[0]
+      ? `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
+      : '/mod-4-project/assets/placeholder.jpg';
 
     return { data: [data, cover], error: null };
   } catch (error) {
@@ -92,7 +97,7 @@ export const getSingleBook = async (key) => {
    ===================================================== */
 export const searchBooks = async (query) => {
   try {
-    const response = await fetch(`https://openlibrary.org/search.json?q=${query}`);
+    const response = await fetch(`https://openlibrary.org/search.json?q=${query}&sort=rating`);
 
     if (!response.ok) {
       throw Error(`Fetch failed. ${response.status} ${response.statusText}`);
@@ -104,7 +109,11 @@ export const searchBooks = async (query) => {
     // Some results may not include a cover
     let cover = [];
     for (const doc of data.docs) {
-      cover.push(doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg` : null);
+      cover.push(
+        doc.cover_i
+          ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`
+          : '/mod-4-project/assets/placeholder.jpg',
+      );
     }
 
     return { data: [data, cover], error: null };
