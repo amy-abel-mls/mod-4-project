@@ -19,19 +19,11 @@
    that are updated dynamically as the user interacts
    with the app
    ===================================================== */
-<<<<<<< feature/css
 const modalBody = document.querySelector('#modal-body');
 const searchResultsSection = document.querySelector('#search-results-section');
 const searchResults = document.querySelector('#search-results');
 const recommendedSection = document.querySelector('#recommended-section');
 const recommendedResults = document.querySelector('#recommended-results');
-=======
-const modalBody = document.querySelector("#modal-body");
-const searchResultsSection = document.querySelector("#search-results-section");
-const searchResults = document.querySelector("#search-results");
-const recommendedSection = document.querySelector("#recommended-section");
-const recommendedResults = document.querySelector("#recommended-results");
->>>>>>> main
 
 /* =====================================================
    RENDER GENRE BOOKS
@@ -43,18 +35,13 @@ const recommendedResults = document.querySelector("#recommended-results");
    ===================================================== */
 export const renderBooksGenre = (books, container) => {
   // Clear existing content before rendering
-<<<<<<< feature/css
   container.innerHTML = '';
-=======
-  container.innerHTML = "";
->>>>>>> main
 
   books.data[0].works.forEach((book, i) => {
-    const li = document.createElement("li");
+    const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
     // Book cover with graceful fallback
-<<<<<<< feature/css
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.onload = () => img.classList.add('loaded');
@@ -66,17 +53,6 @@ export const renderBooksGenre = (books, container) => {
 
     // Book title
     const h3 = document.createElement('h3');
-=======
-    const img = document.createElement("img");
-    img.onerror = () => {
-      img.src = "/placeholder.jpg";
-    };
-    img.src = books.data[1][i] || "/placeholder.jpg";
-    img.alt = book.title;
-
-    // Book title
-    const h3 = document.createElement("h3");
->>>>>>> main
     h3.textContent = book.title;
 
     li.append(img, h3);
@@ -95,7 +71,6 @@ export const renderBooksGenre = (books, container) => {
    ===================================================== */
 export const renderBookDetails = (book) => {
   // Clear previous modal content
-<<<<<<< feature/css
   modalBody.innerHTML = '';
 
   const bookData = book.data[0];
@@ -137,48 +112,10 @@ export const renderBookDetails = (book) => {
   if (bookData.subjects && bookData.subjects.length) {
     bookData.subjects.slice(0, 5).forEach((subject) => {
       const li = document.createElement('li');
-=======
-  modalBody.innerHTML = "";
-
-  const bookData = book.data[0];
-
-  //Image
-  const img = document.createElement("img");
-  img.onerror = () => {
-    img.src = "/placeholder.jpg";
-  };
-  img.src = book.data[1] || "/placeholder.jpg";
-  img.alt = bookData.title;
-
-  //Title
-  const title = document.createElement("h3");
-  title.textContent = bookData.title;
-
-  //Description
-  const description = document.createElement("p");
-  description.textContent =
-    typeof bookData.description === "string"
-      ? bookData.description
-      : bookData.description?.value || "No description available.";
-
-  //Genres
-  const genresContainer = document.createElement("div");
-  genresContainer.classList.add("book-genres");
-
-  const genresTitle = document.createElement("h4");
-  genresTitle.textContent = "Genres";
-
-  const genresList = document.createElement("ul");
-
-  if (bookData.subjects && bookData.subjects.length) {
-    bookData.subjects.slice(0, 5).forEach((subject) => {
-      const li = document.createElement("li");
->>>>>>> main
       li.textContent = subject;
       genresList.appendChild(li);
     });
   } else {
-<<<<<<< feature/css
     const li = document.createElement('li');
     li.textContent = 'No genres available';
     genresList.appendChild(li);
@@ -195,17 +132,6 @@ export const renderBookDetails = (book) => {
 
   //Append
   modalBody.append(img, title, genresContainer, description);
-=======
-    const li = document.createElement("li");
-    li.textContent = "No genres available";
-    genresList.appendChild(li);
-  }
-
-  genresContainer.append(genresTitle, genresList);
-
-  //Append
-  modalBody.append(img, title, description, genresContainer);
->>>>>>> main
 };
 
 /* =====================================================
@@ -218,7 +144,6 @@ export const renderBookDetails = (book) => {
 export const renderBooksSearch = (books) => {
   // Ensure search results section is visible
   searchResultsSection.hidden = false;
-<<<<<<< feature/css
   searchResults.innerHTML = '';
 
   books.data[0].docs.forEach((book, i) => {
@@ -237,24 +162,6 @@ export const renderBooksSearch = (books) => {
 
     // Book title
     const h3 = document.createElement('h3');
-=======
-  searchResults.innerHTML = "";
-
-  books.data[0].docs.forEach((book, i) => {
-    const li = document.createElement("li");
-    li.dataset.bookKey = book.key;
-
-    // Book cover with fallback
-    const img = document.createElement("img");
-    img.onerror = () => {
-      img.src = "/placeholder.jpg";
-    };
-    img.src = books.data[1][i] || "/placeholder.jpg";
-    img.alt = book.title;
-
-    // Book title
-    const h3 = document.createElement("h3");
->>>>>>> main
     h3.textContent = book.title;
 
     li.append(img, h3);
@@ -270,15 +177,17 @@ export const renderBooksSearch = (books) => {
    - Limits the number of recommendations to keep
      the UI focused and readable
    ===================================================== */
-export const renderRecommendedBooks = (books) => {
+export const renderRecommendedBooks = (books, searchWord) => {
   // Guard clause — prevents runtime crash
   if (!recommendedSection || !recommendedResults) return;
 
   recommendedSection.hidden = false;
-<<<<<<< feature/css
   recommendedResults.innerHTML = '';
 
-  books.data[0].works.slice(0, 8).forEach((book, i) => {
+  books.data[0].works.forEach((book, i) => {
+    //Avoids books with a similar title as the seedBook
+    if (book.title.includes(searchWord)) return;
+
     const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
@@ -290,20 +199,6 @@ export const renderRecommendedBooks = (books) => {
     img.alt = book.title;
 
     const h3 = document.createElement('h3');
-=======
-  recommendedResults.innerHTML = "";
-
-  books.data[0].works.slice(0, 8).forEach((book, i) => {
-    const li = document.createElement("li");
-    li.dataset.bookKey = book.key;
-
-    const img = document.createElement("img");
-    img.onerror = () => (img.src = "/placeholder.jpg");
-    img.src = books.data[1][i] || "/placeholder.jpg";
-    img.alt = book.title;
-
-    const h3 = document.createElement("h3");
->>>>>>> main
     h3.textContent = book.title;
 
     li.append(img, h3);
