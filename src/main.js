@@ -113,9 +113,23 @@ const getRecommendationsFromSearch = async (searchResults) => {
   if (!subjects?.length) return;
 
   // Select one subject to base recommendations on
-  const subject = subjects[Math.floor(Math.random() * subjects.length)]
-    .toLowerCase()
-    .replace(/\s+/g, '_');
+  const getRandomSubject = () =>
+    subjects[Math.floor(Math.random() * subjects.length)].toLowerCase().replace(/\s+/g, '_');
+
+  //Filter books with titles similar to seedBook
+  const searchWord = seedBook.title.split(' ').slice(0, 2).join(' ');
+  const filterRecommended = (recommended) =>
+    recommended.data[0].works.filter((book) => !book.title.includes(searchWord));
+
+  //Initialize recommended algorithm
+  let recommended = await getGenres(getRandomSubject());
+  let recommendedFiltered = filterRecommended(recommended);
+
+  //Keep running algorithm until there are more than 10 books to recommend
+  while (recommendedFiltered.length < 10) {
+    recommended = await getGenres(getRandomSubject());
+    recommendedFiltered = filterRecommended(recommended);
+  }
 
   const recommended = await getGenres(subject);
   if (!recommended.error) {
