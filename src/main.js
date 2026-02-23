@@ -121,8 +121,6 @@ const getRecommendationsFromSearch = async (searchResults) => {
   const filterRecommended = (recommended) =>
     recommended.data[0].works.filter((book) => !book.title.includes(searchWord));
 
-  console.log(searchWord);
-
   //Initialize recommended algorithm
   let recommended = await getGenres(getRandomSubject());
   let recommendedFiltered = filterRecommended(recommended);
