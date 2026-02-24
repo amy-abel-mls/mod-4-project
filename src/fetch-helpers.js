@@ -97,7 +97,7 @@ export const getSingleBook = async (key) => {
    ===================================================== */
 export const searchBooks = async (query) => {
   try {
-    const response = await fetch(`https://openlibrary.org/search.json?q=${query}&sort=rating`);
+    const response = await fetch(`https://openlibrary.org/search.json?q=${query}`);
 
     if (!response.ok) {
       throw Error(`Fetch failed. ${response.status} ${response.statusText}`);
@@ -106,7 +106,6 @@ export const searchBooks = async (query) => {
     const data = await response.json();
 
     // Build cover image URLs using the search-specific cover ID
-    // Some results may not include a cover
     let cover = [];
     for (const doc of data.docs) {
       cover.push(

@@ -12,7 +12,7 @@ const loadSound = async (url) => {
 
 // Sfx files
 export const clickBuffer = await loadSound('/mod-4-project/assets/click.mp3');
-export const scrollBuffer = await loadSound('/mod-4-project/assets/scroll1.mp3');
+export const scrollBuffer = await loadSound('/mod-4-project/assets/scroll.mp3');
 
 export const playSound = (buffer, volume) => {
   // AudioContext may be suspended until user interaction
