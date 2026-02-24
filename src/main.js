@@ -14,6 +14,17 @@ import {
   renderRecommendedBooks,
 } from './dom-helpers.js';
 
+import {
+  userGestures,
+  onFirstGesture,
+  scrollBuffer,
+  playSound,
+  clickBuffer,
+  startOrResumeAudio,
+  pauseAudio,
+  musicOn,
+} from './audio-helpers';
+
 /* =====================================================
    DOM REFERENCES
    -----------------------------------------------------
@@ -33,6 +44,17 @@ const closeModalBtn = document.querySelector('.close-modal-btn');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 
 const randomBookBtn = document.querySelector('#random-book-btn');
+
+const scrollableCarousel = document.querySelectorAll('.genre-carousel, #search-results');
+
+const bgMusic = document.getElementById('bg-music');
+const unmuteButton = document.getElementById('unmute-button');
+const unmuteIcon = document.getElementById('unmute-icon');
+(unmuteIcon.alt === localStorage.getItem('musicOn')) === 'true' ? 'unmuted' : 'muted';
+
+/* =====================================================
+   MUSIC & SFX
+   ===================================================== */
 
 /* =====================================================
    CONSTANTS
@@ -227,13 +249,57 @@ const handleArrowClick = (e) => {
    -----------------------------------------------------
    Connects user actions to application behavior
    ===================================================== */
-
 searchForm.addEventListener('submit', handleSearch);
 document.body.addEventListener('click', handleBookClick);
 [closeModalBtn, modalBackdrop].forEach((el) => el.addEventListener('click', closeModal));
 randomBookBtn.addEventListener('click', handleRandomBook);
 document.querySelector('#genres-section').addEventListener('click', handleArrowClick);
 document.querySelector('#search-results-section').addEventListener('click', handleArrowClick);
+
+unmuteButton.addEventListener('click', () => {
+  if (bgMusic.muted) {
+    startOrResumeAudio();
+    unmuteIcon.src = '/mod-4-project/assets/unmuted.svg';
+    unmuteIcon.alt = 'unmuted';
+  } else {
+    pauseAudio();
+    unmuteIcon.src = '/mod-4-project/assets/muted.svg';
+    unmuteIcon.alt = 'muted';
+  }
+});
+
+userGestures.forEach((e) => document.addEventListener(e, onFirstGesture));
+
+//When window is switched the audio is always paused
+window.addEventListener('blur', pauseAudio);
+
+// When user is on app window audio is handled
+window.addEventListener('focus', () => {
+  if (unmuteIcon.alt === 'unmuted') startOrResumeAudio();
+});
+
+document.body.addEventListener('click', (e) => {
+  if (
+    e.target.closest(
+      'button, a, .genre-carousel h3, #search-results h3, #recommended-results h3',
+    ) &&
+    musicOn
+  ) {
+    playSound(clickBuffer, 0.01);
+  }
+});
+
+scrollableCarousel.forEach((carousel) => {
+  let coolDown = false;
+  carousel.addEventListener('scroll', () => {
+    if (!coolDown && unmuteIcon.alt === 'unmuted') {
+      playSound(scrollBuffer, 1);
+      coolDown = true;
+      setTimeout(() => (coolDown = false), 150);
+    }
+  });
+});
+
 /* =====================================================
    APPLICATION START
    -----------------------------------------------------

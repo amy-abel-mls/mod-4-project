@@ -100,7 +100,7 @@ button:active {
 
 form {
   position: relative;
-  width: 60vw;
+  width: 50vw;
   border-radius: 0.7rem 0 0 0.7rem;
   background-color: var(--wood-color);
 }
@@ -171,7 +171,7 @@ label {
   border-radius: 0 0.7rem 0.7rem 0;
 }
 
-/* READ LATER */
+/* UNMUTE & READ LATER */
 
 #search-and-other-container {
   display: flex;
@@ -179,12 +179,16 @@ label {
   align-items: center;
 }
 
+#unmute-button,
 #read-later-container {
   background: url('/assets/wood-bg.png') center/ cover;
   border-radius: 50%;
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+}
+
+#read-later-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,12 +196,18 @@ label {
   transition: all 0.5s ease-in-out;
 }
 
+#unmute-button:hover,
 #read-later-container:hover {
   transform: scale(1.5);
 }
 
+#unmute-button:active,
 #read-later-container:active {
   transform: scale(0.9);
+}
+
+#unmute-icon {
+  width: 15px;
 }
 
 #read-later-icon {
