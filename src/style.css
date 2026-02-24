@@ -95,7 +95,7 @@ button:active {
 
 form {
   position: relative;
-  width: 60vw;
+  width: 50vw;
   border-radius: 0.7rem 0 0 0.7rem;
   background-color: var(--wood-color);
 }
@@ -164,6 +164,34 @@ label {
   background: url('/assets/wood-bg.png') right bottom / cover;
   color: var(--text-color);
   border-radius: 0 0.7rem 0.7rem 0;
+}
+
+/* UNMUTE */
+
+#search-and-other-container {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+#unmute-button {
+  background: url('/assets/wood-bg.png') center/ cover;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+#unmute-button:hover {
+  transform: scale(2);
+}
+
+#unmute-button:active {
+  transform: scale(0.9);
+}
+
+#unmute-icon {
+  width: 15px;
 }
 
 /* CAROUSEL WRAPPER */

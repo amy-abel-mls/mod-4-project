@@ -25,9 +25,7 @@
    ===================================================== */
 export const getGenres = async (genre) => {
   try {
-    const response = await fetch(
-      `https://openlibrary.org/subjects/${genre}.json`,
-    );
+    const response = await fetch(`https://openlibrary.org/subjects/${genre}.json`);
 
     if (!response.ok) {
       throw Error(`Fetch failed. ${response.status} ${response.statusText}`);
@@ -41,7 +39,7 @@ export const getGenres = async (genre) => {
       cover.push(
         work.cover_edition_key
           ? `https://covers.openlibrary.org/b/olid/${work.cover_edition_key}-L.jpg`
-          : "mod-4-project/public/assets/image.png",
+          : '/mod-4-project/assets/image.png',
       );
     }
 
@@ -77,7 +75,7 @@ export const getSingleBook = async (key) => {
     // Build the cover image URL using the cover ID
     const cover = data.covers[0]
       ? `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
-      : "mod-4-project/public/assets/image.png";
+      : '/mod-4-project/assets/image.png';
 
     return { data: [data, cover], error: null };
   } catch (error) {
@@ -99,9 +97,7 @@ export const getSingleBook = async (key) => {
    ===================================================== */
 export const searchBooks = async (query) => {
   try {
-    const response = await fetch(
-      `https://openlibrary.org/search.json?q=${query}&sort=rating`,
-    );
+    const response = await fetch(`https://openlibrary.org/search.json?q=${query}&sort=rating`);
 
     if (!response.ok) {
       throw Error(`Fetch failed. ${response.status} ${response.statusText}`);
@@ -116,7 +112,7 @@ export const searchBooks = async (query) => {
       cover.push(
         doc.cover_i
           ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`
-          : "mod-4-project/public/assets/image.png",
+          : '/mod-4-project/assets/image.png',
       );
     }
 

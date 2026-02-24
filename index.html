@@ -7,25 +7,33 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
+    <audio id="bg-music" muted loop preload="auto">
+      <source src="/assets/bg.mp3" type="audio/mpeg" />
+    </audio>
     <!-- Hero/Header  -->
     <header>
       <div id="hero-bookshelf-container">
         <h1 id="title"><a href=".">ReadMe Maybe?</a></h1>
       </div>
 
-      <!-- Search & Random  -->
-      <div id="search-and-random-container">
-        <form id="search-form" class="search-bar" role="search">
-          <label for="search-input" class="sr-only">Search books</label>
-          <input
-            id="search-input"
-            type="search"
-            placeholder="Search by title, author, or genre"
-            autocomplete="off"
-          />
-          <button type="submit">Search</button>
-        </form>
-        <button id="random-book-btn">Random Book</button>
+      <div id="search-and-other-container">
+        <!-- Search & Random  -->
+        <div id="search-and-random-container">
+          <form id="search-form" class="search-bar" role="search">
+            <label for="search-input" class="sr-only">Search books</label>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Search by title, author, or genre"
+              autocomplete="off"
+            />
+            <button type="submit">Search</button>
+          </form>
+          <button id="random-book-btn">Random Book</button>
+        </div>
+        <button id="unmute-button">
+          <img src="/assets/muted.svg" alt="muted" id="unmute-icon" />
+        </button>
       </div>
     </header>
 

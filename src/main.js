@@ -6,13 +6,13 @@
    - DOM helpers are responsible only for creating
      and updating HTML elements on the page
    ===================================================== */
-import { getGenres, searchBooks, getSingleBook } from "./fetch-helpers.js";
+import { getGenres, searchBooks, getSingleBook } from './fetch-helpers.js';
 import {
   renderBooksGenre,
   renderBooksSearch,
   renderBookDetails,
   renderRecommendedBooks,
-} from "./dom-helpers.js";
+} from './dom-helpers.js';
 
 /* =====================================================
    DOM REFERENCES
@@ -22,16 +22,64 @@ import {
    - Listen for user interactions
    - Open and close the modal
    ===================================================== */
-const genreSections = document.querySelectorAll(".genre-row");
-const genresSection = document.querySelector("#genres-section");
+const genreSections = document.querySelectorAll('.genre-row');
+const genresSection = document.querySelector('#genres-section');
 
-const searchForm = document.querySelector("#search-form");
-const searchInput = document.querySelector("#search-input");
+const searchForm = document.querySelector('#search-form');
+const searchInput = document.querySelector('#search-input');
 
-const modalOverlay = document.querySelector("#modal-overlay");
-const closeModalBtn = document.querySelector("#close-modal-btn");
+const modalOverlay = document.querySelector('#modal-overlay');
+const closeModalBtn = document.querySelector('#close-modal-btn');
 
-const randomBookBtn = document.querySelector("#random-book-btn");
+const randomBookBtn = document.querySelector('#random-book-btn');
+
+const scrollableCarousel = document.querySelectorAll('.genre-carousel, #search-results');
+
+const bgMusic = document.getElementById('bg-music');
+const unmuteButton = document.getElementById('unmute-button');
+const unmuteIcon = document.getElementById('unmute-icon');
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+/* =====================================================
+   MUSIC & SFX
+   ===================================================== */
+
+const loadSound = async (url) => {
+  const response = await fetch(url);
+  const arrayBuffer = await response.arrayBuffer();
+  return await audioCtx.decodeAudioData(arrayBuffer);
+};
+
+// Sfx files
+const clickBuffer = await loadSound('/mod-4-project/assets/click.mp3');
+const scrollBuffer = await loadSound('/mod-4-project/assets/scroll1.mp3');
+
+const playSound = (buffer, volume) => {
+  // AudioContext may be suspended until user interaction
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+
+  const source = audioCtx.createBufferSource();
+  const gainNode = audioCtx.createGain();
+  gainNode.gain.value = volume;
+
+  source.buffer = buffer;
+  source.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  source.start(0);
+};
+
+bgMusic.volume = 0.1;
+
+// Start or resume music
+const startOrResumeAudio = () => {
+  bgMusic.muted = false;
+  bgMusic.play();
+};
+
+// Pause audio when tab/window loses focus
+const pauseAudio = () => {
+  bgMusic.muted = true;
+};
 
 /* =====================================================
    CONSTANTS
@@ -41,12 +89,12 @@ const randomBookBtn = document.querySelector("#random-book-btn");
    by selecting a random genre first
    ===================================================== */
 const RANDOM_GENRES = [
-  "fantasy",
-  "science_fiction",
-  "romance",
-  "thriller",
-  "mystery",
-  "historical_fiction",
+  'fantasy',
+  'science_fiction',
+  'romance',
+  'thriller',
+  'mystery',
+  'historical_fiction',
 ];
 
 /* =====================================================
@@ -59,7 +107,7 @@ const RANDOM_GENRES = [
 const loadGenres = async () => {
   for (const section of genreSections) {
     const genre = section.dataset.genre;
-    const container = section.querySelector("ul");
+    const container = section.querySelector('ul');
 
     const books = await getGenres(genre);
     if (!books.error) {
@@ -114,19 +162,15 @@ const getRecommendationsFromSearch = async (searchResults) => {
 
   // Select one subject to base recommendations on
   const getRandomSubject = () =>
-    subjects[Math.floor(Math.random() * subjects.length)]
-      .toLowerCase()
-      .replace(/\s+/g, "_");
+    subjects[Math.floor(Math.random() * subjects.length)].toLowerCase().replace(/\s+/g, '_');
 
   //Filter books with titles similar to seedBook
-  const searchWord = seedBook.title.split(" ").slice(0, 2).join(" ");
+  const searchWord = seedBook.title.split(' ').slice(0, 2).join(' ');
   const filterRecommended = (recommended) =>
-    recommended.data[0].works.filter(
-      (book) => !book.title.includes(searchWord),
-    );
+    recommended.data[0].works.filter((book) => !book.title.includes(searchWord));
 
   //Initialize recommended algorithm
-  //let recommended = await getGenres(getRandomSubject());
+  let recommended = await getGenres(getRandomSubject());
   let recommendedFiltered = filterRecommended(recommended);
 
   //Keep running algorithm until there are more than 10 books to recommend
@@ -135,7 +179,7 @@ const getRecommendationsFromSearch = async (searchResults) => {
     recommendedFiltered = filterRecommended(recommended);
   }
 
-  const recommended = await getGenres(subject);
+  // const recommended = await getGenres(subject);
   if (!recommended.error) {
     renderRecommendedBooks(recommended, searchWord);
   }
@@ -151,8 +195,7 @@ const getRecommendationsFromSearch = async (searchResults) => {
      for all book details
    ===================================================== */
 const handleRandomBook = async () => {
-  const randomGenre =
-    RANDOM_GENRES[Math.floor(Math.random() * RANDOM_GENRES.length)];
+  const randomGenre = RANDOM_GENRES[Math.floor(Math.random() * RANDOM_GENRES.length)];
 
   const genreBooks = await getGenres(randomGenre);
   if (genreBooks.error) return;
@@ -166,7 +209,7 @@ const handleRandomBook = async () => {
   if (!book.error) {
     renderBookDetails(book);
     modalOverlay.hidden = false;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
   }
 };
 
@@ -179,7 +222,7 @@ const handleRandomBook = async () => {
    - Allows users to close the modal
    ===================================================== */
 const handleBookClick = async (e) => {
-  const bookItem = e.target.closest("[data-book-key]");
+  const bookItem = e.target.closest('[data-book-key]');
   if (!bookItem) return;
 
   const bookKey = bookItem.dataset.bookKey;
@@ -188,29 +231,29 @@ const handleBookClick = async (e) => {
   if (!book.error) {
     renderBookDetails(book);
     modalOverlay.hidden = false;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
   }
 };
 
 const closeModal = () => {
   modalOverlay.hidden = true;
-  document.body.style.overflow = "scroll";
+  document.body.style.overflow = 'scroll';
 };
 
 const SCROLL_AMOUNT = 300;
 const handleArrowClick = (e) => {
-  const arrow = e.target.closest(".arrow");
+  const arrow = e.target.closest('.arrow');
   if (!arrow) return;
 
-  const wrapper = arrow.closest(".carousel-wrapper");
-  const carousel = wrapper.querySelector(".genre-carousel, #search-results");
+  const wrapper = arrow.closest('.carousel-wrapper');
+  const carousel = wrapper.querySelector('.genre-carousel, #search-results');
 
-  if (arrow.classList.contains("arrow-left")) {
-    carousel.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
+  if (arrow.classList.contains('arrow-left')) {
+    carousel.scrollBy({ left: -SCROLL_AMOUNT, behavior: 'smooth' });
   }
 
-  if (arrow.classList.contains("arrow-right")) {
-    carousel.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
+  if (arrow.classList.contains('arrow-right')) {
+    carousel.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' });
   }
 };
 
@@ -219,16 +262,64 @@ const handleArrowClick = (e) => {
    -----------------------------------------------------
    Connects user actions to application behavior
    ===================================================== */
-searchForm.addEventListener("submit", handleSearch);
-document.body.addEventListener("click", handleBookClick);
-closeModalBtn.addEventListener("click", closeModal);
-randomBookBtn.addEventListener("click", handleRandomBook);
-document
-  .querySelector("#genres-section")
-  .addEventListener("click", handleArrowClick);
-document
-  .querySelector("#search-results-section")
-  .addEventListener("click", handleArrowClick);
+searchForm.addEventListener('submit', handleSearch);
+document.body.addEventListener('click', handleBookClick);
+closeModalBtn.addEventListener('click', closeModal);
+randomBookBtn.addEventListener('click', handleRandomBook);
+document.querySelector('#genres-section').addEventListener('click', handleArrowClick);
+document.querySelector('#search-results-section').addEventListener('click', handleArrowClick);
+
+unmuteButton.addEventListener('click', () => {
+  if (bgMusic.muted) {
+    startOrResumeAudio();
+    unmuteIcon.src = '/mod-4-project/assets/unmuted.svg';
+    unmuteIcon.alt = 'unmuted';
+  } else {
+    pauseAudio();
+    unmuteIcon.src = '/mod-4-project/assets/muted.svg';
+    unmuteIcon.alt = 'muted';
+  }
+});
+
+// When tab is switched the audio is always paused
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    pauseAudio();
+  } else if (unmuteIcon.alt === 'unmuted') {
+    startOrResumeAudio();
+  }
+});
+
+//When window is switched the audio is always paused
+window.addEventListener('blur', pauseAudio);
+
+// When user is on app window audio is handled
+window.addEventListener('focus', () => {
+  if (unmuteIcon.alt === 'unmuted') startOrResumeAudio();
+});
+
+document.body.addEventListener('click', (e) => {
+  if (
+    e.target.closest(
+      'button, a, .genre-carousel h3, #search-results h3, #recommended-results h3',
+    ) &&
+    unmuteIcon.alt === 'unmuted'
+  ) {
+    playSound(clickBuffer, 0.01);
+  }
+});
+
+scrollableCarousel.forEach((carousel) => {
+  let coolDown = false;
+  carousel.addEventListener('scroll', () => {
+    if (!coolDown && unmuteIcon.alt === 'unmuted') {
+      playSound(scrollBuffer, 1);
+      coolDown = true;
+      setTimeout(() => (coolDown = false), 150);
+    }
+  });
+});
+
 /* =====================================================
    APPLICATION START
    -----------------------------------------------------
