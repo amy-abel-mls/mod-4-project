@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReadMe Maybe</title>
-    <script type="module" crossorigin src="/mod-4-project/assets/main-D9jSD7qg.js"></script>
-    <link rel="modulepreload" crossorigin href="/mod-4-project/assets/audio-helpers-CwIrhp9L.js">
-    <link rel="stylesheet" crossorigin href="/mod-4-project/assets/audio-helpers-CjO7WHdY.css">
+    <link rel="icon" type="image/png" href="/mod-4-project/assets/favicon.png" />
+    <script type="module" crossorigin src="/mod-4-project/assets/main-PBmTXkCP.js"></script>
+    <link rel="modulepreload" crossorigin href="/mod-4-project/assets/audio-helpers-CmrB_eTk.js">
+    <link rel="stylesheet" crossorigin href="/mod-4-project/assets/audio-helpers-C3Gz-vCw.css">
   </head>
   <body>
     <audio id="bg-music" muted loop preload="auto">
@@ -15,9 +16,10 @@
     <!-- Hero/Header  -->
     <header>
       <div id="hero-bookshelf-container">
-        <h1 class="title"><a href=".">ReadMe Maybe?</a></h1>
+        <h1 id="title"><a href=".">ReadMe Maybe?</a></h1>
       </div>
 
+      <!-- Search & Other  -->
       <div id="search-and-other-container">
         <!-- Search & Random  -->
         <div id="search-and-random-container">
@@ -46,7 +48,6 @@
     <main>
       <!-- Genres Fetch on load-->
       <section id="genres-section">
-        <!-- Example Genre Row -->
         <section class="genre-row" data-genre="thriller">
           <h2>Thriller</h2>
           <div class="carousel-wrapper">
@@ -95,6 +96,7 @@
           </div>
         </div>
       </section>
+
       <!-- Recommended (After Search) -->
       <section id="recommended-section" hidden>
         <h2>Recommended</h2>
