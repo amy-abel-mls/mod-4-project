@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReadMe Maybe</title>
     <link rel="stylesheet" href="/src/style.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
   </head>
   <body>
     <audio id="bg-music" muted loop preload="auto">
@@ -13,9 +14,10 @@
     <!-- Hero/Header  -->
     <header>
       <div id="hero-bookshelf-container">
-        <h1 class="title"><a href=".">ReadMe Maybe?</a></h1>
+        <h1 id="title"><a href=".">ReadMe Maybe?</a></h1>
       </div>
 
+      <!-- Search & Other  -->
       <div id="search-and-other-container">
         <!-- Search & Random  -->
         <div id="search-and-random-container">
@@ -44,7 +46,6 @@
     <main>
       <!-- Genres Fetch on load-->
       <section id="genres-section">
-        <!-- Example Genre Row -->
         <section class="genre-row" data-genre="thriller">
           <h2>Thriller</h2>
           <div class="carousel-wrapper">
@@ -93,6 +94,7 @@
           </div>
         </div>
       </section>
+
       <!-- Recommended (After Search) -->
       <section id="recommended-section" hidden>
         <h2>Recommended</h2>

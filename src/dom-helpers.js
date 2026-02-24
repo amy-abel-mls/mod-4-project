@@ -42,13 +42,10 @@ export const renderBooksGenre = (books, container) => {
     const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
-    // Book cover with graceful fallback
+    // Book cover
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.onload = () => img.classList.add('loaded');
-    // img.onerror = () => {
-    //   img.src = '/mod-4-project/assets/placeholder.jpg';
-    // };
     img.src = books.data[1][i];
     img.alt = book.title;
 
@@ -117,9 +114,6 @@ export const renderBookDetails = (book) => {
   const img = document.createElement('img');
   img.loading = 'lazy';
   img.onload = () => img.classList.add('loaded');
-  // img.onerror = () => {
-  //   img.src = '/mod-4-project/assets/placeholder.jpg';
-  // };
   img.src = book.data[1];
   img.alt = bookData.title;
 
@@ -193,13 +187,10 @@ export const renderBooksSearch = (books) => {
     const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
-    // Book cover with fallback
+    // Book cover
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.onload = () => img.classList.add('loaded');
-    // img.onerror = () => {
-    //   img.src = '/mod-4-project/assets/placeholder.jpg';
-    // };
     img.src = books.data[1][i];
     img.alt = book.title;
 
@@ -237,7 +228,6 @@ export const renderRecommendedBooks = (books, searchWord) => {
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.onload = () => img.classList.add('loaded');
-    // img.onerror = () => (img.src = '/mod-4-project/assets/placeholder.jpg');
     img.src = books.data[1][i];
     img.alt = book.title;
 

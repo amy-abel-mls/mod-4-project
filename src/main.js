@@ -292,7 +292,7 @@ document.body.addEventListener('click', (e) => {
 scrollableCarousel.forEach((carousel) => {
   let coolDown = false;
   carousel.addEventListener('scroll', () => {
-    if (!coolDown && unmuteIcon.alt === 'unmuted') {
+    if (!coolDown && musicOn) {
       playSound(scrollBuffer, 1);
       coolDown = true;
       setTimeout(() => (coolDown = false), 150);
@@ -300,9 +300,5 @@ scrollableCarousel.forEach((carousel) => {
   });
 });
 
-/* =====================================================
-   APPLICATION START
-   -----------------------------------------------------
-   Kicks off the initial genre-based discovery view
-   ===================================================== */
+// Initial render
 loadGenres();
