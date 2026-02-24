@@ -47,6 +47,19 @@ const RANDOM_GENRES = [
   "thriller",
   "mystery",
   "historical_fiction",
+  "horror",
+  "young_adult",
+  "classics",
+  "adventure",
+  "dystopian",
+  "crime",
+  "biography",
+  "poetry",
+  "drama",
+  "short_stories",
+  "children",
+  "philosophy",
+  "psychology",
 ];
 
 /* =====================================================
