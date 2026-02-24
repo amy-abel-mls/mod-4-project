@@ -19,7 +19,8 @@
    that are updated dynamically as the user interacts
    with the app
    ===================================================== */
-const modalBody = document.querySelector('#modal-body');
+import { saveBookToFavorites, removeBookFromFavorites, isBookSaved } from './favorites-helpers.js';
+const modalBody = document.querySelector('.modal-body');
 const searchResultsSection = document.querySelector('#search-results-section');
 const searchResults = document.querySelector('#search-results');
 const recommendedSection = document.querySelector('#recommended-section');
@@ -75,6 +76,43 @@ export const renderBookDetails = (book) => {
 
   const bookData = book.data[0];
 
+  const actionBtn = document.createElement('button');
+  actionBtn.classList.add('favorite-toggle-btn');
+
+  const actionBtnIcon = document.createElement('img');
+  actionBtnIcon.src = '/mod-4-project/assets/heart-outline.svg';
+  actionBtnIcon.alt = 'Read Later';
+
+  actionBtn.append(actionBtnIcon);
+
+  const updateButtonState = () => {
+    if (isBookSaved(bookData.key)) {
+      actionBtnIcon.alt = 'Remove from Read Later';
+      actionBtnIcon.src = '/mod-4-project/assets/heart.svg';
+      actionBtn.classList.add('remove');
+    } else {
+      actionBtnIcon.alt = 'Read Later';
+      actionBtnIcon.src = '/mod-4-project/assets/heart-outline.svg';
+      actionBtn.classList.remove('remove');
+    }
+  };
+
+  updateButtonState();
+
+  actionBtn.addEventListener('click', () => {
+    if (isBookSaved(bookData.key)) {
+      removeBookFromFavorites(bookData.key);
+    } else {
+      saveBookToFavorites({
+        key: bookData.key,
+        title: bookData.title,
+        cover: book.data[1],
+      });
+    }
+
+    updateButtonState();
+  });
+
   //Image
   const img = document.createElement('img');
   img.loading = 'lazy';
@@ -86,8 +124,13 @@ export const renderBookDetails = (book) => {
   img.alt = bookData.title;
 
   //Title
+  const titleContainer = document.createElement('div');
+  titleContainer.classList.add('modal-title-container');
+
   const title = document.createElement('h3');
   title.textContent = bookData.title;
+
+  titleContainer.append(title, actionBtn);
 
   //Description
   const description = document.createElement('p');
@@ -131,7 +174,7 @@ export const renderBookDetails = (book) => {
   genresContainer.append(genresTitle, marqueeContainer);
 
   //Append
-  modalBody.append(img, title, genresContainer, description);
+  modalBody.append(img, titleContainer, genresContainer, description);
 };
 
 /* =====================================================

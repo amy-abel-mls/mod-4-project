@@ -13,7 +13,7 @@
     <!-- Hero/Header  -->
     <header>
       <div id="hero-bookshelf-container">
-        <h1 id="title"><a href=".">ReadMe Maybe?</a></h1>
+        <h1 class="title"><a href=".">ReadMe Maybe?</a></h1>
       </div>
 
       <div id="search-and-other-container">
@@ -34,6 +34,9 @@
         <button id="unmute-button">
           <img src="/assets/muted.svg" alt="muted" id="unmute-icon" />
         </button>
+        <a href="/mod-4-project/favorites.html" id="read-later-container"
+          ><img src="/assets/heart.svg" alt="read later" id="read-later-icon"
+        /></a>
       </div>
     </header>
 
@@ -98,10 +101,11 @@
     </main>
 
     <!--  Modal -->
-    <div id="modal-overlay" hidden>
+    <div class="modal-overlay" hidden>
+      <div class="modal-backdrop"></div>
       <div class="modal-content" role="dialog" aria-modal="true">
-        <button id="close-modal-btn" aria-label="Close modal">✕</button>
-        <div id="modal-body"></div>
+        <button class="close-modal-btn" aria-label="Close modal">✕</button>
+        <div class="modal-body"></div>
       </div>
     </div>
 

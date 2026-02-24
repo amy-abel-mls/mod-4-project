@@ -14,6 +14,17 @@ import {
   renderRecommendedBooks,
 } from './dom-helpers.js';
 
+import {
+  userGestures,
+  onFirstGesture,
+  scrollBuffer,
+  playSound,
+  clickBuffer,
+  startOrResumeAudio,
+  pauseAudio,
+  musicOn,
+} from './audio-helpers';
+
 /* =====================================================
    DOM REFERENCES
    -----------------------------------------------------
@@ -28,8 +39,9 @@ const genresSection = document.querySelector('#genres-section');
 const searchForm = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 
-const modalOverlay = document.querySelector('#modal-overlay');
-const closeModalBtn = document.querySelector('#close-modal-btn');
+const modalOverlay = document.querySelector('.modal-overlay');
+const closeModalBtn = document.querySelector('.close-modal-btn');
+const modalBackdrop = document.querySelector('.modal-backdrop');
 
 const randomBookBtn = document.querySelector('#random-book-btn');
 
@@ -38,48 +50,11 @@ const scrollableCarousel = document.querySelectorAll('.genre-carousel, #search-r
 const bgMusic = document.getElementById('bg-music');
 const unmuteButton = document.getElementById('unmute-button');
 const unmuteIcon = document.getElementById('unmute-icon');
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+(unmuteIcon.alt === localStorage.getItem('musicOn')) === 'true' ? 'unmuted' : 'muted';
 
 /* =====================================================
    MUSIC & SFX
    ===================================================== */
-
-const loadSound = async (url) => {
-  const response = await fetch(url);
-  const arrayBuffer = await response.arrayBuffer();
-  return await audioCtx.decodeAudioData(arrayBuffer);
-};
-
-// Sfx files
-const clickBuffer = await loadSound('/mod-4-project/assets/click.mp3');
-const scrollBuffer = await loadSound('/mod-4-project/assets/scroll1.mp3');
-
-const playSound = (buffer, volume) => {
-  // AudioContext may be suspended until user interaction
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-
-  const source = audioCtx.createBufferSource();
-  const gainNode = audioCtx.createGain();
-  gainNode.gain.value = volume;
-
-  source.buffer = buffer;
-  source.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  source.start(0);
-};
-
-bgMusic.volume = 0.1;
-
-// Start or resume music
-const startOrResumeAudio = () => {
-  bgMusic.muted = false;
-  bgMusic.play();
-};
-
-// Pause audio when tab/window loses focus
-const pauseAudio = () => {
-  bgMusic.muted = true;
-};
 
 /* =====================================================
    CONSTANTS
@@ -95,6 +70,19 @@ const RANDOM_GENRES = [
   'thriller',
   'mystery',
   'historical_fiction',
+  'horror',
+  'young_adult',
+  'classics',
+  'adventure',
+  'dystopian',
+  'crime',
+  'biography',
+  'poetry',
+  'drama',
+  'short_stories',
+  'children',
+  'philosophy',
+  'psychology',
 ];
 
 /* =====================================================
@@ -179,7 +167,6 @@ const getRecommendationsFromSearch = async (searchResults) => {
     recommendedFiltered = filterRecommended(recommended);
   }
 
-  // const recommended = await getGenres(subject);
   if (!recommended.error) {
     renderRecommendedBooks(recommended, searchWord);
   }
@@ -264,7 +251,7 @@ const handleArrowClick = (e) => {
    ===================================================== */
 searchForm.addEventListener('submit', handleSearch);
 document.body.addEventListener('click', handleBookClick);
-closeModalBtn.addEventListener('click', closeModal);
+[closeModalBtn, modalBackdrop].forEach((el) => el.addEventListener('click', closeModal));
 randomBookBtn.addEventListener('click', handleRandomBook);
 document.querySelector('#genres-section').addEventListener('click', handleArrowClick);
 document.querySelector('#search-results-section').addEventListener('click', handleArrowClick);
@@ -281,14 +268,7 @@ unmuteButton.addEventListener('click', () => {
   }
 });
 
-// When tab is switched the audio is always paused
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    pauseAudio();
-  } else if (unmuteIcon.alt === 'unmuted') {
-    startOrResumeAudio();
-  }
-});
+userGestures.forEach((e) => document.addEventListener(e, onFirstGesture));
 
 //When window is switched the audio is always paused
 window.addEventListener('blur', pauseAudio);
@@ -303,7 +283,7 @@ document.body.addEventListener('click', (e) => {
     e.target.closest(
       'button, a, .genre-carousel h3, #search-results h3, #recommended-results h3',
     ) &&
-    unmuteIcon.alt === 'unmuted'
+    musicOn
   ) {
     playSound(clickBuffer, 0.01);
   }
