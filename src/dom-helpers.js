@@ -19,16 +19,12 @@
    that are updated dynamically as the user interacts
    with the app
    ===================================================== */
-import {
-  saveBookToFavorites,
-  removeBookFromFavorites,
-  isBookSaved,
-} from "./favorites-helpers.js";
-const modalBody = document.querySelector("#modal-body");
-const searchResultsSection = document.querySelector("#search-results-section");
-const searchResults = document.querySelector("#search-results");
-const recommendedSection = document.querySelector("#recommended-section");
-const recommendedResults = document.querySelector("#recommended-results");
+import { saveBookToFavorites, removeBookFromFavorites, isBookSaved } from './favorites-helpers.js';
+const modalBody = document.querySelector('.modal-body');
+const searchResultsSection = document.querySelector('#search-results-section');
+const searchResults = document.querySelector('#search-results');
+const recommendedSection = document.querySelector('#recommended-section');
+const recommendedResults = document.querySelector('#recommended-results');
 
 /* =====================================================
    RENDER GENRE BOOKS
@@ -40,16 +36,16 @@ const recommendedResults = document.querySelector("#recommended-results");
    ===================================================== */
 export const renderBooksGenre = (books, container) => {
   // Clear existing content before rendering
-  container.innerHTML = "";
+  container.innerHTML = '';
 
   books.data[0].works.forEach((book, i) => {
-    const li = document.createElement("li");
+    const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
     // Book cover with graceful fallback
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.onload = () => img.classList.add("loaded");
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.onload = () => img.classList.add('loaded');
     // img.onerror = () => {
     //   img.src = '/mod-4-project/assets/placeholder.jpg';
     // };
@@ -57,7 +53,7 @@ export const renderBooksGenre = (books, container) => {
     img.alt = book.title;
 
     // Book title
-    const h3 = document.createElement("h3");
+    const h3 = document.createElement('h3');
     h3.textContent = book.title;
 
     li.append(img, h3);
@@ -76,26 +72,34 @@ export const renderBooksGenre = (books, container) => {
    ===================================================== */
 export const renderBookDetails = (book) => {
   // Clear previous modal content
-  modalBody.innerHTML = "";
+  modalBody.innerHTML = '';
 
   const bookData = book.data[0];
 
-  const actionBtn = document.createElement("button");
-  actionBtn.classList.add("favorite-toggle-btn");
+  const actionBtn = document.createElement('button');
+  actionBtn.classList.add('favorite-toggle-btn');
+
+  const actionBtnIcon = document.createElement('img');
+  actionBtnIcon.src = '/mod-4-project/assets/heart-outline.svg';
+  actionBtnIcon.alt = 'Read Later';
+
+  actionBtn.append(actionBtnIcon);
 
   const updateButtonState = () => {
     if (isBookSaved(bookData.key)) {
-      actionBtn.textContent = "Remove from Read Later";
-      actionBtn.classList.add("remove");
+      actionBtnIcon.alt = 'Remove from Read Later';
+      actionBtnIcon.src = '/mod-4-project/assets/heart.svg';
+      actionBtn.classList.add('remove');
     } else {
-      actionBtn.textContent = "Read Later";
-      actionBtn.classList.remove("remove");
+      actionBtnIcon.alt = 'Read Later';
+      actionBtnIcon.src = '/mod-4-project/assets/heart-outline.svg';
+      actionBtn.classList.remove('remove');
     }
   };
 
   updateButtonState();
 
-  actionBtn.addEventListener("click", () => {
+  actionBtn.addEventListener('click', () => {
     if (isBookSaved(bookData.key)) {
       removeBookFromFavorites(bookData.key);
     } else {
@@ -110,9 +114,9 @@ export const renderBookDetails = (book) => {
   });
 
   //Image
-  const img = document.createElement("img");
-  img.loading = "lazy";
-  img.onload = () => img.classList.add("loaded");
+  const img = document.createElement('img');
+  img.loading = 'lazy';
+  img.onload = () => img.classList.add('loaded');
   // img.onerror = () => {
   //   img.src = '/mod-4-project/assets/placeholder.jpg';
   // };
@@ -120,38 +124,43 @@ export const renderBookDetails = (book) => {
   img.alt = bookData.title;
 
   //Title
-  const title = document.createElement("h3");
+  const titleContainer = document.createElement('div');
+  titleContainer.classList.add('modal-title-container');
+
+  const title = document.createElement('h3');
   title.textContent = bookData.title;
 
+  titleContainer.append(title, actionBtn);
+
   //Description
-  const description = document.createElement("p");
+  const description = document.createElement('p');
   description.textContent =
-    typeof bookData.description === "string"
+    typeof bookData.description === 'string'
       ? bookData.description
-      : bookData.description?.value || "No description available.";
+      : bookData.description?.value || 'No description available.';
 
   //Genres
-  const genresContainer = document.createElement("div");
-  genresContainer.classList.add("book-genres");
+  const genresContainer = document.createElement('div');
+  genresContainer.classList.add('book-genres');
 
-  const genresTitle = document.createElement("h4");
-  genresTitle.textContent = "Genres";
+  const genresTitle = document.createElement('h4');
+  genresTitle.textContent = 'Genres';
 
-  const marqueeContainer = document.createElement("div");
-  marqueeContainer.classList.add("marquee-container");
+  const marqueeContainer = document.createElement('div');
+  marqueeContainer.classList.add('marquee-container');
 
-  const genresList = document.createElement("ul");
-  genresList.classList.add("marquee");
+  const genresList = document.createElement('ul');
+  genresList.classList.add('marquee');
 
   if (bookData.subjects && bookData.subjects.length) {
     bookData.subjects.slice(0, 5).forEach((subject) => {
-      const li = document.createElement("li");
+      const li = document.createElement('li');
       li.textContent = subject;
       genresList.appendChild(li);
     });
   } else {
-    const li = document.createElement("li");
-    li.textContent = "No genres available";
+    const li = document.createElement('li');
+    li.textContent = 'No genres available';
     genresList.appendChild(li);
   }
 
@@ -159,13 +168,13 @@ export const renderBookDetails = (book) => {
 
   //duplicated for marquee
   const genresListCloned = genresList.cloneNode(true);
-  genresListCloned.setAttribute("aria-hidden", "true");
+  genresListCloned.setAttribute('aria-hidden', 'true');
   marqueeContainer.append(genresListCloned);
 
   genresContainer.append(genresTitle, marqueeContainer);
 
   //Append
-  modalBody.append(img, title, genresContainer, description, actionBtn);
+  modalBody.append(img, titleContainer, genresContainer, description);
 };
 
 /* =====================================================
@@ -178,16 +187,16 @@ export const renderBookDetails = (book) => {
 export const renderBooksSearch = (books) => {
   // Ensure search results section is visible
   searchResultsSection.hidden = false;
-  searchResults.innerHTML = "";
+  searchResults.innerHTML = '';
 
   books.data[0].docs.forEach((book, i) => {
-    const li = document.createElement("li");
+    const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
     // Book cover with fallback
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.onload = () => img.classList.add("loaded");
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.onload = () => img.classList.add('loaded');
     // img.onerror = () => {
     //   img.src = '/mod-4-project/assets/placeholder.jpg';
     // };
@@ -195,7 +204,7 @@ export const renderBooksSearch = (books) => {
     img.alt = book.title;
 
     // Book title
-    const h3 = document.createElement("h3");
+    const h3 = document.createElement('h3');
     h3.textContent = book.title;
 
     li.append(img, h3);
@@ -216,23 +225,23 @@ export const renderRecommendedBooks = (books, searchWord) => {
   if (!recommendedSection || !recommendedResults) return;
 
   recommendedSection.hidden = false;
-  recommendedResults.innerHTML = "";
+  recommendedResults.innerHTML = '';
 
   books.data[0].works.forEach((book, i) => {
     //Avoids books with a similar title as the seedBook
     if (book.title.includes(searchWord)) return;
 
-    const li = document.createElement("li");
+    const li = document.createElement('li');
     li.dataset.bookKey = book.key;
 
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.onload = () => img.classList.add("loaded");
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.onload = () => img.classList.add('loaded');
     // img.onerror = () => (img.src = '/mod-4-project/assets/placeholder.jpg');
     img.src = books.data[1][i];
     img.alt = book.title;
 
-    const h3 = document.createElement("h3");
+    const h3 = document.createElement('h3');
     h3.textContent = book.title;
 
     li.append(img, h3);

@@ -6,14 +6,27 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <header>
-      <h1><a href="/">ReadMe Maybe?</a></h1>
+    <header id="favorites-header">
+      <h1 class="title"><a href="/">ReadMe Maybe?</a></h1>
     </header>
 
-    <main>
+    <main id="favorites-section">
       <h2>Read Later</h2>
       <ul id="favorites-list"></ul>
     </main>
+
+    <!--  Modal -->
+    <div class="modal-overlay" hidden>
+      <div class="modal-backdrop"></div>
+      <div class="modal-content" role="dialog" aria-modal="true">
+        <button class="close-modal-btn" aria-label="Close modal">✕</button>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Powered by Open Library</p>
+    </footer>
 
     <script type="module" src="/src/favorites.js"></script>
   </body>
