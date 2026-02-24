@@ -4,29 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReadMe Maybe</title>
-    <script type="module" crossorigin src="/mod-4-project/assets/index-B_d28u94.js"></script>
-    <link rel="stylesheet" crossorigin href="/mod-4-project/assets/index-BnuKn7cx.css">
+    <script type="module" crossorigin src="/mod-4-project/assets/index-D1hLOmqm.js"></script>
+    <link rel="stylesheet" crossorigin href="/mod-4-project/assets/index-CjO7WHdY.css">
   </head>
   <body>
+    <audio id="bg-music" muted loop preload="auto">
+      <source src="/mod-4-project/assets/bg.mp3" type="audio/mpeg" />
+    </audio>
     <!-- Hero/Header  -->
     <header>
       <div id="hero-bookshelf-container">
-        <h1 id="title"><a href=".">ReadMe Maybe?</a></h1>
+        <h1 class="title"><a href=".">ReadMe Maybe?</a></h1>
       </div>
 
-      <!-- Search & Random  -->
-      <div id="search-and-random-container">
-        <form id="search-form" class="search-bar" role="search">
-          <label for="search-input" class="sr-only">Search books</label>
-          <input
-            id="search-input"
-            type="search"
-            placeholder="Search by title, author, or genre"
-            autocomplete="off"
-          />
-          <button type="submit">Search</button>
-        </form>
-        <button id="random-book-btn">Random Book</button>
+      <div id="search-and-other-container">
+        <!-- Search & Random  -->
+        <div id="search-and-random-container">
+          <form id="search-form" class="search-bar" role="search">
+            <label for="search-input" class="sr-only">Search books</label>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Search by title, author, or genre"
+              autocomplete="off"
+            />
+            <button type="submit">Search</button>
+          </form>
+          <button id="random-book-btn">Random Book</button>
+        </div>
+        <button id="unmute-button">
+          <img src="/mod-4-project/assets/muted.svg" alt="muted" id="unmute-icon" />
+        </button>
+        <a href="/mod-4-project/favorites.html" id="read-later-container"
+          ><img src="/mod-4-project/assets/heart.svg" alt="read later" id="read-later-icon"
+        /></a>
       </div>
     </header>
 
@@ -91,10 +102,11 @@
     </main>
 
     <!--  Modal -->
-    <div id="modal-overlay" hidden>
+    <div class="modal-overlay" hidden>
+      <div class="modal-backdrop"></div>
       <div class="modal-content" role="dialog" aria-modal="true">
-        <button id="close-modal-btn" aria-label="Close modal">✕</button>
-        <div id="modal-body"></div>
+        <button class="close-modal-btn" aria-label="Close modal">✕</button>
+        <div class="modal-body"></div>
       </div>
     </div>
 
