@@ -56,6 +56,10 @@ header {
   gap: 5rem;
 }
 
+#favorites-header {
+  height: 25vh;
+}
+
 #hero-bookshelf-container,
 button {
   position: relative;
@@ -72,13 +76,14 @@ button:active {
   transform: scale(0.9);
 }
 
-#title {
+.title {
+  position: relative;
   font-family: var(--display-font);
   font-weight: 600;
   letter-spacing: 0.03em;
 }
 
-#title::before {
+.title::before {
   content: '';
   position: absolute;
   bottom: -40%;
@@ -166,6 +171,40 @@ label {
   border-radius: 0 0.7rem 0.7rem 0;
 }
 
+/* READ LATER */
+
+#search-and-other-container {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+#read-later-container {
+  background: url('/assets/wood-bg.png') center/ cover;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+}
+
+#read-later-container:hover {
+  transform: scale(1.5);
+}
+
+#read-later-container:active {
+  transform: scale(0.9);
+}
+
+#read-later-icon {
+  width: 15px;
+  filter: invert(1);
+}
+
 /* CAROUSEL WRAPPER */
 
 .carousel-wrapper {
@@ -204,7 +243,8 @@ label {
 
 #genres-section,
 #recommended-section,
-#search-results-section {
+#search-results-section,
+#favorites-section {
   padding-inline: 2.5rem;
 }
 
@@ -216,7 +256,8 @@ label {
 
 .genre-row h2,
 #search-results-section h2,
-#recommended-section h2 {
+#recommended-section h2,
+#favorites-section h2 {
   margin-bottom: 1.5rem;
   text-align: center;
   font-family: var(--display-font);
@@ -250,7 +291,8 @@ label {
 
 .genre-carousel li,
 #search-results li,
-#recommended-results li {
+#recommended-results li,
+#favorites-list li {
   position: relative;
   transition: all 0.3s ease-in-out;
   transform: scale(0.95);
@@ -258,19 +300,22 @@ label {
 
 .genre-carousel li:hover,
 #search-results li:hover,
-#recommended-results li:hover {
+#recommended-results li:hover,
+#favorites-list li:hover {
   transform: scale(1);
 }
 
 .genre-carousel li:active,
 #search-results li:active,
-#recommended-results li:active {
+#recommended-results li:active,
+#favorites-list li {
   transform: scale(0.94);
 }
 
 .genre-carousel img,
 #search-results img,
-#recommended-results img {
+#recommended-results img,
+#favorites-list img {
   width: 17rem;
   height: 24rem;
   object-fit: fill;
@@ -282,14 +327,16 @@ label {
 .genre-carousel img.loaded,
 #search-results img.loaded,
 #recommended-results img.loaded,
-#modal-body img.loaded {
+.modal-body > img.loaded,
+#favorites-list img.loaded {
   transform: scale(1);
   opacity: 1;
 }
 
 .genre-carousel h3,
 #search-results h3,
-#recommended-results h3 {
+#recommended-results h3,
+#favorites-list h3 {
   cursor: pointer;
   position: absolute;
   width: 17rem;
@@ -312,20 +359,18 @@ label {
 
 .genre-carousel h3:hover,
 #search-results h3:hover,
-#recommended-results h3:hover {
+#recommended-results h3:hover,
+#favorites-list h3:hover {
   opacity: 1;
 }
 
-/* RECOMMENDED */
+/* RECOMMENDED & FAVORITES LIST */
 
-#recommended-results {
+#recommended-results,
+#favorites-list {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#recommended-results {
-  display: flex;
   flex-wrap: wrap;
   width: 100%;
   gap: 1rem;
@@ -334,7 +379,7 @@ label {
 
 /* MODAL */
 
-#modal-overlay {
+.modal-overlay {
   position: fixed;
   width: 80vw;
   height: 50vh;
@@ -344,7 +389,7 @@ label {
   z-index: 1;
 }
 
-#modal-overlay::before {
+.modal-overlay::before {
   content: '';
   position: inherit;
   width: inherit;
@@ -360,8 +405,8 @@ label {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
-#modal-overlay::after {
-  content: '';
+.modal-backdrop {
+  /* content: ''; */
   position: absolute;
   width: 200vw;
   height: 200vh;
@@ -379,7 +424,7 @@ label {
   display: flex;
 }
 
-#modal-body {
+.modal-body {
   display: grid;
   padding: 2rem;
   width: 80vw;
@@ -427,30 +472,29 @@ label {
   }
 }
 
-#modal-body li {
+.modal-body li {
   font-family: var(--serif-font);
   font-weight: 400;
   line-height: 1.6;
 }
 
-#modal-body img {
+.modal-body > img {
   display: none;
 }
 
-#modal-body p {
+.modal-body p {
   overflow-y: scroll;
   font-family: var(--serif-font);
   font-weight: 400;
   line-height: 1.6;
 }
 
-#modal-body h3 {
-  align-self: flex-end;
+.modal-body h3 {
   font-family: var(--display-font);
   font-weight: 500;
 }
 
-#close-modal-btn {
+.close-modal-btn {
   position: absolute;
   cursor: pointer;
   top: 10px;
@@ -460,9 +504,34 @@ label {
   font-size: 1.5rem;
 }
 
+/* FAVORITE TOGGLE */
+
+.modal-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.favorite-toggle-btn {
+  position: relative;
+  display: flex;
+  background-color: transparent;
+  width: 18px;
+}
+
+.favorite-toggle-btn img {
+  position: relative;
+  width: inherit;
+  filter: invert(1);
+}
+
 /* FOOTER */
 
 footer {
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   text-align: center;
 }
 
@@ -473,20 +542,20 @@ footer {
     padding-inline: 5rem;
   }
 
-  #modal-overlay,
+  .modal-overlay,
   .modal-content {
     width: 70vw;
     height: 40vh;
   }
 
-  #modal-body {
+  .modal-body {
     width: 65vw;
     max-height: 30vh;
     gap: 1rem;
     grid-template-columns: 1fr 1.5fr;
   }
 
-  #modal-body img {
+  .modal-body > img {
     display: block;
     width: 100%;
     height: 100%;
@@ -507,13 +576,13 @@ footer {
 }
 
 @media screen and (min-width: 1024px) {
-  #modal-overlay,
+  .modal-overlay,
   .modal-content {
     width: 60vw;
     height: 60vh;
   }
 
-  #modal-body {
+  .modal-body {
     width: 55vw;
     max-height: 55vh;
     grid-template-columns: 1fr 2fr;
