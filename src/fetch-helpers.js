@@ -45,7 +45,7 @@ export const getGenres = async (genre) => {
 
     return { data: [data, cover], error: null };
   } catch (error) {
-    console.log(error.message);
+    console.warn(error.message);
     return { data: null, error };
   }
 };
@@ -79,7 +79,7 @@ export const getSingleBook = async (key) => {
 
     return { data: [data, cover], error: null };
   } catch (error) {
-    console.log(error.message);
+    console.warn(error.message);
     return { data: null, error };
   }
 };
@@ -117,7 +117,7 @@ export const searchBooks = async (query) => {
 
     return { data: [data, cover], error: null };
   } catch (error) {
-    console.error(error.message);
+    console.warn(error.message);
     return { data: null, error };
   }
 };
